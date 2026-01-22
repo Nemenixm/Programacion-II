@@ -5,6 +5,7 @@ public class RaycastMouse : MonoBehaviour
 {   
     //Nosotros elegimos que cámara y se la asignamos
     public Camera camera;
+    public Rigidbody objectSelected=null;
 
     // Update is called once per frame
    /* void FixedUpdate()
@@ -31,8 +32,10 @@ public class RaycastMouse : MonoBehaviour
             );
 
             if (Physics.Raycast(ray, out hit))
-            {
-                hit.collider.gameObject.SetActive(false);
+            {   //Ejercicio de Raycast
+                //hit.collider.gameObject.SetActive(false);
+                //Ejercicio Practia I cañon
+                objectSelected =hit.rigidbody;
             }
         }
     }
