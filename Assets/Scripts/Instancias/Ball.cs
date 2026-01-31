@@ -9,8 +9,19 @@ public class Ball : MonoBehaviour
     [System.NonSerialized]
     public Rigidbody myRigidbody;
 
+    //TEMA DATA
+    public DataKPI kpiData;
+
     private void Awake()
     {
         myRigidbody=GetComponent<Rigidbody>();
+        
+    }
+
+    private void OCollisionEnter(Collision collision)
+    {
+        if(kpiData!=null){
+        kpiData.SendData();
+        }
     }
 }
