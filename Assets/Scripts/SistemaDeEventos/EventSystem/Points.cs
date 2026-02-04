@@ -1,30 +1,33 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System;
 
 public class Points : MonoBehaviour
-{
+{    
     #region Properties
-    #endregion
+	public int CurrentPoints { get; set; }
+	public event Action OnGetPoints;
 
-    #region  Fields
-    #endregion
+	#endregion
 
-    #region Unity Callbacks
-    void Start()
+	#region Unity Callbacks
+	// Start is called before the first frame update
+	void Start()
     {
-        
+		CurrentPoints = 0;
     }
 
-    
-    void Update()
-    {
-        
-    }
-    #endregion
-    #region Public Methods
+	//private void Update()
+	//{
+	//	if (Input.GetKeyUp(KeyCode.Escape))
+	//		AddPoints(200);
+	//}
+	#endregion
 
-    #endregion
-    #region Private Methods
-    #endregion
-   
+	#region Public Methods
+	public void AddPoints(int pointsToAdd)
+	{
+		CurrentPoints += pointsToAdd;
+		OnGetPoints?.Invoke();
+	}
+	#endregion
 }

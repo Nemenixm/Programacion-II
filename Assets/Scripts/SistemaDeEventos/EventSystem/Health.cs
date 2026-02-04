@@ -1,99 +1,93 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System;
 
 public class Health : MonoBehaviour
-{
+{    
     #region Properties
-    public float CurrentHealt {
+	public float CurrentHealth { 
+		get 
+		{
+			return _currentHealth;
+		}
+		set 
+		{
+			_currentHealth = value;
 
-        get
-        {
-            return _currentHealt;
-        }
-        set
-        {
-            _currentHealt =value;
-            if (value < 0)
-            {
-                _currentHealt=0;
-                Die();
-            }
-            if (value > _maxHealt)
-            {
-                _currentHealt = _maxHealt;
-            }
-        }
-    }
-    public event Action OnGetDamage;
-    public event Action OnGetHeal;
-    public event Action OnDie;
-    #endregion
+			if (value < 0)
+			{
+				_currentHealth = 0;
+				Die();
+			}
 
-    #region  Fields
-    [SerializeField] private float _maxHealt=100;
-    [SerializeField] private float _currentHealt;
-    private bool _die = false;
-    #endregion
+			if (value > _maxHealth)
+				_currentHealth = _maxHealth;
+		} 
+	}
 
-    #region Unity Callbacks
-    void Start()
+	public event Action OnGetDamage;
+	public event Action OnGetHeal;
+	public event Action OnDie;
+
+	#endregion
+
+	#region Fields
+
+	[SerializeField] private float _maxHealth = 100;
+	[SerializeField] private float _currentHealth;
+	[SerializeField] private bool _die = false;
+
+	#endregion
+
+	#region Unity Callbacks
+	// Start is called before the first frame update
+	void Start()
     {
-        CurrentHealt = _maxHealt;
-       
-        //Event Listener
-        //Si es un campo que esta controlado por una propiedad, accedemos a la propiedad.
-        //Para asegurarnos de pasar siempre por los filtros y controles internos
-        OnGetDamage += () => Debug.Log("Life: " + CurrentHealt);
-        OnDie += () => Debug.Log("You Die");
-        GetDamage(20);
-        GetDamage(100);
-        GetDamage(50);
-        
-    }
+		CurrentHealth = _maxHealth;
+		
+	}
 
-    
-    void Update()
-    {
-        
-    }
-    #endregion
-    #region Public Methods
-        public void GetDamage(float damage)
-    {
-        CurrentHealt -= damage;
-        //Event Emiter
-        //Lanzamos el evento. Esto hara que se lance el evento y que todos los que esten suscritos a él lance sus acciones
-        //Con ? preguntamos si el evento es nulo, si es nulo no se lanza. Asi evitamos el error si no hay nadie suscripto a este evento.
-        //No hay nadie suscrito, no hace nada, no lo invoques. No da error
-        OnGetDamage?.Invoke();
-    }
-        public void GetHeal(float life)
-    {
-        CurrentHealt += life;
-        //Event Emiter
-        //Lanzamos el evento. Esto hara que se lance el evento y que todos los que esten suscritos a él lance sus acciones
-        //Con ? preguntamos si el evento es nulo, si es nulo no se lanza. Asi evitamos el error si no hay nadie suscripto a este evento.
-        //No hay nadie suscrito, no hace nada, no lo invoques. No da error
-        OnGetHeal?.Invoke();
-    }
-    #endregion
-    #region Private Methods
+	//Update is called once per frame
 
-    private void Die()
-    {
-        if (!_die)
-        {
-        _die =true;
-        //Die Event Emiter
-        //Lanzamos el evento. Esto hara que se lance el evento y que todos los que esten suscritos a él lance sus acciones
-        //Con ? preguntamos si el evento es nulo, si es nulo no se lanza. Asi evitamos el error si no hay nadie suscripto a este evento.
-        //No hay nadie suscrito, no hace nada, no lo invoques. No da error
-        OnDie?.Invoke();
+	//void Update()
+	//{
+	//	if (Input.GetKeyUp(KeyCode.Return))
+	//		GetDamage(20);
+	//	if (Input.GetKeyUp(KeyCode.Space))
+	//		GetHeal(20);
+	//}
+	#endregion
 
-        }
-        
-    }
-    #endregion
-   
+	#region Public Methods
+	public void GetDamage(float damage)
+	{
+		if (!_die)
+		{
+			CurrentHealth -= damage;
+			//Damage Event Emiter
+			OnGetDamage?.Invoke();
+		}
+	}
+	public void GetHeal(float life)
+	{
+		if (!_die)
+		{
+			CurrentHealth += life;
+			//Heal Event Emiter
+			OnGetHeal?.Invoke();
+		}
+	}
+	#endregion
+
+	#region Private Methods
+
+	private void Die()
+	{
+		if (!_die)
+		{
+			_die = true;
+			//Die Event Emiter
+			OnDie?.Invoke();
+		}
+	}
+	#endregion
 }

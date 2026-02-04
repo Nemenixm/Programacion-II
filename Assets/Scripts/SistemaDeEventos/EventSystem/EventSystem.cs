@@ -1,36 +1,49 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System;
 
 public class EventSystem : MonoBehaviour
 {
-    #region Properties
-    #endregion
+	#region Properties
+	#endregion
 
-    #region  Fields
-    [SerializeField] private Points _points;
-    [SerializeField] private Health _playerHealth;
-    [SerializeField] private UIController _ui;
-    [SerializeField] private SoundController _sound;
-    
-    #endregion
+	#region Fields
+	[SerializeField] private Points _points;
+	[SerializeField] private Health _payerHealth;
+	[SerializeField] private UIController _ui;
+	[SerializeField] private SoundController _sound;
+	#endregion
 
-    #region Unity Callbacks
-    void Start()
+	#region Unity Callbacks
+	// Start is called before the first frame update
+	void Start()
     {
-        //_playerHealth.OnGetDamage += OnGetDamage;
-        _playerHealth.OnDie += () => Debug.Log("You Die");
-    }
+		//Event Listener
+		_payerHealth.OnGetDamage += OnGetDamage;
+		_payerHealth.OnGetHeal += OnGetHeal;
+		_payerHealth.OnDie += OnDie;
+		_points.OnGetPoints += OnAddPoints;
+	}
 
-    
-    void Update()
-    {
-        
-    }
-    #endregion
-    #region Public Methods
+	#endregion
 
-    #endregion
-    #region Private Methods
-    #endregion
-   
+	#region Private Methods
+	private void OnGetDamage()
+	{
+		_sound.PlayDamageSound();
+		_ui.UpdateSliderLife(_payerHealth.CurrentHealth);
+	}
+	private void OnGetHeal()
+	{
+		_ui.UpdateSliderLife(_payerHealth.CurrentHealth);
+	}
+	private void OnDie()
+	{
+		_sound.PlayDieSound();
+		Destroy(_payerHealth.gameObject);
+	}
+	private void OnAddPoints()
+	{
+		_ui.UpdatePoints(_points.CurrentPoints);
+	}
+	#endregion
 }
