@@ -15,7 +15,7 @@ public class Raycast : MonoBehaviour
     {
         //Velocidad de rotacion de la capsula
         transform.Rotate(0, 100*Time.deltaTime, 0);
-        Debug.DrawRay(transform.position, transform.forward,Color.black);
+        UnityEngine.Debug.DrawRay(transform.position, transform.forward,Color.black);
     }
     void FixedUpdate()
     {
@@ -25,7 +25,7 @@ public class Raycast : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit)){
             
             //Mientras esta impactando se dibuja una linea roja
-            Debug.DrawRay(transform.position, hit.point, Color.red);
+           UnityEngine.Debug.DrawRay(transform.position, hit.point, Color.red);
             print("Hit! " + hit.collider.name);
             print("Point! " + hit.point);
             print("Normal! " + hit.normal);

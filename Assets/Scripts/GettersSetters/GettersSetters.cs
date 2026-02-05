@@ -16,7 +16,7 @@ public class GettersSetters : MonoBehaviour
     void Start()
     {
         Points=100;
-        Debug.Log("Points " + Points);
+        UnityEngine.Debug.Log("Points " + Points);
         _levelPoints*=2;
     }
 
