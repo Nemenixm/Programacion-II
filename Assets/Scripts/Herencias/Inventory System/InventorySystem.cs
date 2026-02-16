@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//De esta manera protegemos nuestros scripts de que nunca entren en conflicto con otros
+//scripts de otro proyecto
+namespace Inventory
+{
 [Serializable]
 public class InventorySystem : MonoBehaviour
 {
@@ -10,6 +14,8 @@ public class InventorySystem : MonoBehaviour
     #endregion
 
     #region  Fields
+    [Header("UI Reffs")]
+    [SerializeField] private ItemButtom _prefabButton;
     //Creamos una coleccion para cada tipo
     [Header("Object Definition")]
     [SerializeField] private Weapon [] _weapons;
@@ -52,4 +58,5 @@ public class InventorySystem : MonoBehaviour
     #region Private Methods
     #endregion
    
+}
 }
