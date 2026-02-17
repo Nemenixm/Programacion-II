@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
+/*
 public class ItemButtom : MonoBehaviour
 {
     #region Properties
@@ -52,3 +53,4 @@ public class ItemButtom : MonoBehaviour
     #endregion
    
 }
+*/

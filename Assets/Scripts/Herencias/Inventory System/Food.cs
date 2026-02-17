@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+/*
 //De esta manera protegemos nuestros scripts de que nunca entren en conflicto con otros
 //scripts de otro proyecto
 namespace Inventory
@@ -52,3 +52,4 @@ public class Food : Item, IUsable, ISellable
 
 }
 }
+*/
